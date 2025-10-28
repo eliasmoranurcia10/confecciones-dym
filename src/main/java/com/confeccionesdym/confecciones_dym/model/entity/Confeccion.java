@@ -1,4 +1,4 @@
-package com.confeccionesdym.confecciones_dym.persistence.entity;
+package com.confeccionesdym.confecciones_dym.model.entity;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "confeccion")
-public class ConfeccionEntity {
+public class Confeccion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,5 @@ public class ConfeccionEntity {
 
     @ManyToOne
     @JoinColumn(name = "prenda_id_prenda", insertable = false, updatable = false)
-    private PrendaEntity prendaEntity;
+    private Prenda prendaEntity;
 }

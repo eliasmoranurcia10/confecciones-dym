@@ -1,4 +1,4 @@
-package com.confeccionesdym.confecciones_dym.persistence.entity;
+package com.confeccionesdym.confecciones_dym.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "prenda")
-public class PrendaEntity {
+public class Prenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
