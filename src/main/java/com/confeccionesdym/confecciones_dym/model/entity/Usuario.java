@@ -1,11 +1,17 @@
 package com.confeccionesdym.confecciones_dym.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -29,4 +35,7 @@ public class Usuario {
 
     @Column(name = "celular_usuario", nullable = false, length = 9, unique = true)
     private String celularUsuario;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Venta> ventas;
 }

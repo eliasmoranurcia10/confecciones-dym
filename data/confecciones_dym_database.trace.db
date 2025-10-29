@@ -1,0 +1,4 @@
+2025-10-29 13:16:19.182831-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]DESCRIBE MEDIDA"; se esperaba "DELETE, DROP"
+Syntax error in SQL statement "[*]DESCRIBE MEDIDA"; expected "DELETE, DROP"; SQL statement:
+DESCRIBE MEDIDA [42001-232]
