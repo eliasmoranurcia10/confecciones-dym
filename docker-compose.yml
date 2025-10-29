@@ -1,0 +1,38 @@
+services:
+  app_confecciones_dym:
+    container_name: app_confecciones_dym
+    image: confecciones-dym-java-app:1.0.0
+    build: .
+    ports:
+      - "8081:8080"
+    environment:
+      - DATABASE_URL=jdbc:postgresql://postgres_server_confecciones:5432/confecciones_dym_bd
+      - DATABASE_USERNAME= root
+      - DATABASE_PASSWORD=postgres
+    depends_on:
+      - postgres_server_confecciones
+
+  postgres_server_confecciones:
+    container_name: postgres_server_confecciones
+    image: postgres:latest
+    ports:
+      - '5433:5432'
+    environment:
+      - 'POSTGRES_DB=confecciones_dym_bd'
+      - 'POSTGRES_PASSWORD=root'
+      - 'POSTGRES_USER=postgres'
+    volumes:
+      - database_vol_confecciones:/var/lib/postgresql/data
+
+  pgadmin_confecciones:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "81:80"
+    depends_on:
+      - postgres_server_confecciones
+
+volumes:
+  database_vol_confecciones:

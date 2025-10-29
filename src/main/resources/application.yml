@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: confecciones-dym
+  profiles:
+    active:
+      - dev
