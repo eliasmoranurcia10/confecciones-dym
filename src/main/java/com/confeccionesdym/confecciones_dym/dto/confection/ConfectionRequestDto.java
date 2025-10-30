@@ -1,4 +1,12 @@
 package com.confeccionesdym.confecciones_dym.dto.confection;
 
-public record ConfectionRequestDto() {
+import java.time.LocalDate;
+
+public record ConfectionRequestDto(
+        String descriptionConfection,
+        String statusConfection,
+        LocalDate dateDelivery,
+        String imgConfection,
+        Integer idGarment
+) {
 }

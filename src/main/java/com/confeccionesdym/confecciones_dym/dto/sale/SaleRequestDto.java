@@ -1,4 +1,17 @@
 package com.confeccionesdym.confecciones_dym.dto.sale;
 
-public record SaleRequestDto() {
+import com.confeccionesdym.confecciones_dym.dto.client.ClientResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.garment.GarmentResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.user.UserResponseDto;
+
+import java.math.BigDecimal;
+
+public record SaleRequestDto(
+        String emissionDate,
+        String PaymentType,
+        BigDecimal totalPayment,
+        Integer idUser,
+        Integer idClient,
+        Integer idGarment
+) {
 }
