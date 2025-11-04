@@ -57,7 +57,11 @@ public class ClienteServiceImpl implements ClienteService {
                     this.clienteMapper.updateClienteFromDto(clientRequestDto, cliente);
                     try {
                         return this.clienteMapper.toClientResponseDto(this.clienteRepository.save(cliente));
-                    } catch (Exception exception) {
+                    }
+                    catch (DataIntegrityViolationException ex) {
+                        throw new DuplicateResourceException("Se encontró duplicado de valores en el cliente");
+                    }
+                    catch (Exception exception) {
                         throw new InternalServerErrorException("Error inesperado al actualizar el cliente");
                     }
                 })
