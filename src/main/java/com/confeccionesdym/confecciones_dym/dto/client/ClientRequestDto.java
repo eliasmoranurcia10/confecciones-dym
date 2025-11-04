@@ -11,7 +11,7 @@ public record ClientRequestDto(
         String lastNameClient,
 
         @NotBlank(message = "El número de teléfono es obligatorio")
-        @Pattern(regexp = "\\d{9}", message = "El número de teléfono debe tener 9 dígitos")
+        @Pattern(regexp = "\\d{9}", message = "El número de celular debe tener 9 dígitos")
         String phoneClient
 ) {
 }
