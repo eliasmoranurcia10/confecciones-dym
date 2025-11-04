@@ -2,3 +2,7 @@
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]DESCRIBE MEDIDA"; se esperaba "DELETE, DROP"
 Syntax error in SQL statement "[*]DESCRIBE MEDIDA"; expected "DELETE, DROP"; SQL statement:
 DESCRIBE MEDIDA [42001-232]
+2025-11-03 13:25:39.292143-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "CELULAR_CLIENTE CHARACTER VARYING(9)": "'45464654654654654654' (20)"
+Value too long for column "CELULAR_CLIENTE CHARACTER VARYING(9)": "'45464654654654654654' (20)"; SQL statement:
+insert into cliente (apellidos_cliente,celular_cliente,nombres_cliente,id_cliente) values (?,?,?,default) [22001-232]

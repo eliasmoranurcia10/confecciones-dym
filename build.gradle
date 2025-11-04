@@ -35,6 +35,16 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    // MapStruct
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+    // Validator
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // SpringDoc Swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.10")
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
