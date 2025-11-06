@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface PrendaMapper {
 
@@ -31,4 +33,5 @@ public interface PrendaMapper {
     @Mapping(target = "imgGarment", source = "imgPrenda")
     @Mapping(target = "quantityStock", source = "cantidadStock")
     GarmentResponseDto toGarmentResponseDto(Prenda prenda);
+    List<GarmentResponseDto> toGarmentsResponseDto(List<Prenda> prendas);
 }

@@ -13,6 +13,7 @@ import com.confeccionesdym.confecciones_dym.service.ClienteService;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
+    @Transactional
     public ClientResponseDto save(ClientRequestDto clientRequestDto) {
         try {
             return this.clienteMapper.toClientResponseDto(this.clienteRepository.save(this.clienteMapper.toCliente(clientRequestDto)));
@@ -50,6 +52,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
+    @Transactional
     public ClientResponseDto update(Integer id, ClientRequestDto clientRequestDto) {
         if(id==null || id<=0) throw new BadRequestException("El id es incorrecto");
         return this.clienteRepository.findById(id)
@@ -71,6 +74,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
         if(id==null || id<=0) throw new BadRequestException("El id es incorrecto");
         Cliente cliente = this.clienteRepository.findById(id).orElseThrow(
