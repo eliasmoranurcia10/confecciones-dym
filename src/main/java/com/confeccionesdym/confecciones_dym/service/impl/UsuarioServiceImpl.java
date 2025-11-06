@@ -12,6 +12,7 @@ import com.confeccionesdym.confecciones_dym.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public UserResponseDto save(UserRequestDto userRequestDto) {
         try {
             return this.usuarioMapper.toUserResponseDto(this.usuarioRepository.save(this.usuarioMapper.toUsuario(userRequestDto)));
@@ -49,6 +51,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public UserResponseDto update(Integer id, UserRequestDto userRequestDto) {
         if(id==null || id<=0) throw new BadRequestException("El id es incorrecto");
         return this.usuarioMapper.toUserResponseDto(this.usuarioRepository.findById(id)
@@ -71,6 +74,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
         if(id==null || id<=0) throw new BadRequestException("El id es incorrecto");
         try {
