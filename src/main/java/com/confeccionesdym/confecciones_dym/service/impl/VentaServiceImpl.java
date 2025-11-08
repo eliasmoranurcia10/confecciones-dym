@@ -2,10 +2,7 @@ package com.confeccionesdym.confecciones_dym.service.impl;
 
 import com.confeccionesdym.confecciones_dym.dto.sale.SaleRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.sale.SaleResponseDto;
-import com.confeccionesdym.confecciones_dym.exception.BadRequestException;
-import com.confeccionesdym.confecciones_dym.exception.DuplicateResourceException;
-import com.confeccionesdym.confecciones_dym.exception.InternalServerErrorException;
-import com.confeccionesdym.confecciones_dym.exception.ResourceNotFoundException;
+import com.confeccionesdym.confecciones_dym.exception.*;
 import com.confeccionesdym.confecciones_dym.mapper.VentaMapper;
 import com.confeccionesdym.confecciones_dym.model.entity.Cliente;
 import com.confeccionesdym.confecciones_dym.model.entity.Prenda;
@@ -94,11 +91,17 @@ public class VentaServiceImpl implements VentaService {
     @Transactional
     public void delete(Integer id) {
         if(id==null || id<=0) throw new BadRequestException("El id es incorrecto");
+        Venta venta = this.ventaRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("No se encontró la venta con el id: " + id)
+        );
         try {
-            this.ventaRepository.delete(this.ventaRepository.findById(id).orElseThrow(
-                    () -> new ResourceNotFoundException("No se encontró la venta con el id: " + id)
-            ));
-        } catch (Exception exception) {
+            this.ventaRepository.delete(venta);
+            this.ventaRepository.flush();
+        }
+        catch (DataIntegrityViolationException ex) {
+            throw new ConflictException("No se puede eliminar el cliente porque hubo conflicto");
+        }
+        catch (Exception exception) {
             throw new InternalServerErrorException("Error inesperado al eliminar la venta");
         }
     }

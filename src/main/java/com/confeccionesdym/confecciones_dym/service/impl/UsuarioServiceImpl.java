@@ -2,11 +2,9 @@ package com.confeccionesdym.confecciones_dym.service.impl;
 
 import com.confeccionesdym.confecciones_dym.dto.user.UserRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.user.UserResponseDto;
-import com.confeccionesdym.confecciones_dym.exception.BadRequestException;
-import com.confeccionesdym.confecciones_dym.exception.DuplicateResourceException;
-import com.confeccionesdym.confecciones_dym.exception.InternalServerErrorException;
-import com.confeccionesdym.confecciones_dym.exception.ResourceNotFoundException;
+import com.confeccionesdym.confecciones_dym.exception.*;
 import com.confeccionesdym.confecciones_dym.mapper.UsuarioMapper;
+import com.confeccionesdym.confecciones_dym.model.entity.Usuario;
 import com.confeccionesdym.confecciones_dym.repository.UsuarioRepository;
 import com.confeccionesdym.confecciones_dym.service.UsuarioService;
 import lombok.AllArgsConstructor;
@@ -77,11 +75,17 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public void delete(Integer id) {
         if(id==null || id<=0) throw new BadRequestException("El id es incorrecto");
+        Usuario usuario = this.usuarioRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("No se encontró al usuario con el id: " + id)
+        );
         try {
-            this.usuarioRepository.delete(this.usuarioRepository.findById(id).orElseThrow(
-                    () -> new ResourceNotFoundException("No se encontró al usuario con el id: " + id)
-            ));
-        } catch (Exception exception) {
+            this.usuarioRepository.delete(usuario);
+            this.usuarioRepository.flush();
+        }
+        catch (DataIntegrityViolationException ex) {
+            throw new ConflictException("No se puede eliminar el usuario porque tiene registros asociados");
+        }
+        catch (Exception exception) {
             throw new InternalServerErrorException("Error inesperado al eliminar el usuario");
         }
     }
