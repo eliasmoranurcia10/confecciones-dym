@@ -7,8 +7,7 @@ import com.confeccionesdym.confecciones_dym.dto.user.UserResponseDto;
 import java.math.BigDecimal;
 
 public record SaleRequestDto(
-        String emissionDate,
-        String PaymentType,
+        String paymentType,
         BigDecimal totalPayment,
         Integer idUser,
         Integer idClient,
