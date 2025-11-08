@@ -1,10 +1,7 @@
 package com.confeccionesdym.confecciones_dym.controller.advice;
 
 import com.confeccionesdym.confecciones_dym.dto.errordetail.ErrorDetailDto;
-import com.confeccionesdym.confecciones_dym.exception.BadRequestException;
-import com.confeccionesdym.confecciones_dym.exception.DuplicateResourceException;
-import com.confeccionesdym.confecciones_dym.exception.InternalServerErrorException;
-import com.confeccionesdym.confecciones_dym.exception.ResourceNotFoundException;
+import com.confeccionesdym.confecciones_dym.exception.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +32,11 @@ public class RestExceptionHandler {
     @ExceptionHandler(DuplicateResourceException.class)
     public ResponseEntity<ErrorDetailDto> handleDataIntegrityViolation(DuplicateResourceException ex) {
         return buildResponse("data-integrity-violation", ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ErrorDetailDto> handleConflictException(ConflictException ex) {
+        return buildResponse("conflict-exception", ex.getMessage(), HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(InternalServerErrorException.class)

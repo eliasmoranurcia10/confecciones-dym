@@ -66,11 +66,11 @@ public class Medida {
     @Column(name = "otros_detalles")
     private String otrosDetalles;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", insertable = false, updatable = false)
     private Cliente cliente;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_confeccion", referencedColumnName = "id_confeccion", insertable = false, updatable = false)
     private Confeccion confeccion;
 }

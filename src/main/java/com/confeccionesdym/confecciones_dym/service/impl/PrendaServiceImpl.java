@@ -2,11 +2,9 @@ package com.confeccionesdym.confecciones_dym.service.impl;
 
 import com.confeccionesdym.confecciones_dym.dto.garment.GarmentRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.garment.GarmentResponseDto;
-import com.confeccionesdym.confecciones_dym.exception.BadRequestException;
-import com.confeccionesdym.confecciones_dym.exception.DuplicateResourceException;
-import com.confeccionesdym.confecciones_dym.exception.InternalServerErrorException;
-import com.confeccionesdym.confecciones_dym.exception.ResourceNotFoundException;
+import com.confeccionesdym.confecciones_dym.exception.*;
 import com.confeccionesdym.confecciones_dym.mapper.PrendaMapper;
+import com.confeccionesdym.confecciones_dym.model.entity.Prenda;
 import com.confeccionesdym.confecciones_dym.repository.PrendaRepository;
 import com.confeccionesdym.confecciones_dym.service.PrendaService;
 import lombok.AllArgsConstructor;
@@ -75,10 +73,15 @@ public class PrendaServiceImpl implements PrendaService {
     @Transactional
     public void delete(Integer id) {
         if(id==null || id <= 0) throw new BadRequestException("el id es incorrecto");
+        Prenda prenda = this.prendaRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("No se encontró la prenda con el id: " + id)
+        );
         try {
-            this.prendaRepository.delete(this.prendaRepository.findById(id).orElseThrow(
-                    () -> new ResourceNotFoundException("No se encontró la prenda con el id: " + id)
-            ));
+            this.prendaRepository.delete(prenda);
+            this.prendaRepository.flush();
+        }
+        catch (DataIntegrityViolationException ex) {
+            throw new ConflictException("No se puede eliminar la prenda porque tiene registros asociados");
         }
         catch (Exception exception) {
             throw new InternalServerErrorException("Error inesperado al eliminar la prenda");

@@ -2,10 +2,7 @@ package com.confeccionesdym.confecciones_dym.service.impl;
 
 import com.confeccionesdym.confecciones_dym.dto.client.ClientRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.client.ClientResponseDto;
-import com.confeccionesdym.confecciones_dym.exception.BadRequestException;
-import com.confeccionesdym.confecciones_dym.exception.DuplicateResourceException;
-import com.confeccionesdym.confecciones_dym.exception.InternalServerErrorException;
-import com.confeccionesdym.confecciones_dym.exception.ResourceNotFoundException;
+import com.confeccionesdym.confecciones_dym.exception.*;
 import com.confeccionesdym.confecciones_dym.mapper.ClienteMapper;
 import com.confeccionesdym.confecciones_dym.model.entity.Cliente;
 import com.confeccionesdym.confecciones_dym.repository.ClienteRepository;
@@ -82,7 +79,12 @@ public class ClienteServiceImpl implements ClienteService {
         );
         try {
             this.clienteRepository.delete(cliente);
-        } catch (Exception exception) {
+            this.clienteRepository.flush();
+        }
+        catch (DataIntegrityViolationException ex) {
+            throw new ConflictException("No se puede eliminar el cliente porque tiene registros asociados");
+        }
+        catch (Exception exception) {
             throw new InternalServerErrorException("Error inesperado al eliminar al cliente");
         }
     }
