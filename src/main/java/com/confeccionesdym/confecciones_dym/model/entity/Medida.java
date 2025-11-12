@@ -67,10 +67,10 @@ public class Medida {
     private String otrosDetalles;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", insertable = false, updatable = false)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     private Cliente cliente;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_confeccion", referencedColumnName = "id_confeccion", insertable = false, updatable = false)
+    @JoinColumn(name = "id_confeccion", referencedColumnName = "id_confeccion")
     private Confeccion confeccion;
 }

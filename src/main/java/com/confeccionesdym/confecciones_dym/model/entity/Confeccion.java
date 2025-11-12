@@ -35,7 +35,7 @@ public class Confeccion {
     private String imgConfeccion;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_prenda", referencedColumnName = "id_prenda", updatable = false, insertable = false)
+    @JoinColumn(name = "id_prenda", referencedColumnName = "id_prenda")
     private Prenda prenda;
 
     @OneToMany(mappedBy = "confeccion")
