@@ -8,7 +8,7 @@ public record ConfectionResponseDto(
         Integer idConfection,
         String descriptionConfection,
         String statusConfection,
-        LocalDate dateDelivery,
+        String dateDelivery,
         String imgConfection,
         GarmentResponseDto garmentResponseDto
 ) {
