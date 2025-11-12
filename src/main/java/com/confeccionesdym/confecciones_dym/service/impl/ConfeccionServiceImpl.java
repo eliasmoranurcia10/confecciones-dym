@@ -93,7 +93,7 @@ public class ConfeccionServiceImpl implements ConfeccionService {
             this.confeccionRepository.flush();
         }
         catch (DataIntegrityViolationException ex) {
-            throw new ConflictException("No se puede elimicar la confección porque hubo conflicto");
+            throw new ConflictException("No se puede eliminar la confección porque hubo conflicto");
         }
         catch (Exception exception) {
             throw new InternalServerErrorException("Error inesperado al eliminar la confección");
