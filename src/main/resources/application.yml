@@ -3,7 +3,7 @@ spring:
     name: confecciones-dym
   profiles:
     active:
-      - prod
+      - dev
 
 server:
   servlet:
