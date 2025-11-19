@@ -28,6 +28,9 @@ public class Venta {
     @Column(name = "tipo_pago", nullable = false, length = 45)
     private String tipoPago;
 
+    @Column(name = "cantidad_venta", nullable = false)
+    private Integer cantidadVenta;
+
     @Column(name = "total_pago", nullable = false, precision = 10, scale = 2 )
     private BigDecimal totalPago;
 

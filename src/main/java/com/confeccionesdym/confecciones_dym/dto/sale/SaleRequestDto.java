@@ -13,6 +13,10 @@ public record SaleRequestDto(
         )
         String paymentType,
 
+        @NotNull(message = "La cantidad de venta es requerida")
+        @Positive(message = "La cantidad debe ser un número positivo")
+        Integer saleQuantity,
+
         @NotNull(message = "El total de pago es requerido")
         @Positive(message = "El pago debe ser un número positivo")
         @Digits(integer = 10, fraction = 2, message = "El total de pago debe tener 10 dígitos enteros y 2 dígitos fraccionarios")

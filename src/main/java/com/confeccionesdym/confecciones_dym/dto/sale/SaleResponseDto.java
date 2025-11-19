@@ -10,6 +10,7 @@ public record SaleResponseDto(
         Integer idSale,
         String emissionDate,
         String PaymentType,
+        Integer saleQuantity,
         BigDecimal totalPayment,
         UserResponseDto userResponseDto,
         ClientResponseDto clientResponseDto,
