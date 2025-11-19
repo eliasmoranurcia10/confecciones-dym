@@ -33,11 +33,4 @@ public interface VentaMapper {
     @Mapping(target = "garmentResponseDto", source = "prenda")
     SaleResponseDto toSaleResponseDto(Venta venta);
     List<SaleResponseDto> toSalesResponseDto(List<Venta> ventas);
-
-    @Named("fechaEmisionToEmissionDate")
-    default String fechaEmisionToEmissionDate(LocalDateTime fechaEmision) {
-        return fechaEmision==null ? null : fechaEmision.format(
-                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
-        );
-    }
 }
