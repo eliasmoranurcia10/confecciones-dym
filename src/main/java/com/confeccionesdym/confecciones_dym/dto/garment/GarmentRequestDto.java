@@ -2,6 +2,8 @@ package com.confeccionesdym.confecciones_dym.dto.garment;
 
 import jakarta.validation.constraints.*;
 
+import java.math.BigDecimal;
+
 public record GarmentRequestDto(
         @NotBlank(message = "El tipo de brenda es requerido")
         @Size(min = 3, max = 45, message = "El tipo de prenda debe tener de 3 a 45 caracteres")
@@ -21,6 +23,10 @@ public record GarmentRequestDto(
                 message = "Solo se permiten letras (con acentos y ñ), números, guiones bajos y un solo espacio entre palabras"
         )
         String collegeGarment,
+
+        @Positive(message = "El precio es un número positivo")
+        @Digits(integer = 10, fraction = 2, message = "Formato de precio incorrecto")
+        BigDecimal unitPrice,
 
         @Size(min = 2, max = 255, message = "La ruta de la imagen debe tener de 2 hasta 255 caracteres")
         String imgGarment,
