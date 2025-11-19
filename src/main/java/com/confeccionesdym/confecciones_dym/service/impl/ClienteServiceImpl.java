@@ -88,4 +88,24 @@ public class ClienteServiceImpl implements ClienteService {
             throw new InternalServerErrorException("Error inesperado al eliminar al cliente");
         }
     }
+
+    @Override
+    public List<ClientResponseDto> listByNames(String names, String lastNames) {
+        if(names!=null && lastNames!=null) {
+            return this.clienteMapper.toClientsResponseDto(
+                    this.clienteRepository.findAllByNombresClienteContainingIgnoreCaseAndApellidosClienteContainingIgnoreCase(names, lastNames)
+            );
+        } else if(names!=null) {
+            return this.clienteMapper.toClientsResponseDto(
+                    this.clienteRepository.findAllByNombresClienteContainingIgnoreCase(names)
+            );
+        } else if(lastNames!=null) {
+            return this.clienteMapper.toClientsResponseDto(
+                    this.clienteRepository.findAllByApellidosClienteContainingIgnoreCase(lastNames)
+            );
+        } else {
+            return this.clienteMapper.toClientsResponseDto(this.clienteRepository.findAll());
+        }
+    }
+
 }
