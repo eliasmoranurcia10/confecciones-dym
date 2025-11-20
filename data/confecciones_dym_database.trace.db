@@ -69,3 +69,7 @@ SELECT * FROM CLIENTE WHERE NOMBRE_CLIENTE='Juan Carlos' [42122-232]
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-11-19 10:42:58.937207-05:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]DELETEVENTA  VENTA"; se esperaba "DELETE, DROP"
+Syntax error in SQL statement "[*]DELETEVENTA  VENTA"; expected "DELETE, DROP"; SQL statement:
+DELETEVENTA  VENTA [42001-232]

@@ -17,6 +17,7 @@ public interface PrendaMapper {
     @Mapping(target = "tipoPrenda", source = "typeGarment")
     @Mapping(target = "talla", source = "size")
     @Mapping(target = "colegioPrenda", source = "collegeGarment")
+    @Mapping(target = "precioUnitario", source = "unitPrice")
     @Mapping(target = "imgPrenda", source = "imgGarment")
     @Mapping(target = "cantidadStock", source = "quantityStock")
     @Mapping(target = "ventas", ignore = true)
@@ -30,6 +31,7 @@ public interface PrendaMapper {
     @Mapping(target = "typeGarment", source = "tipoPrenda")
     @Mapping(target = "size", source = "talla")
     @Mapping(target = "collegeGarment", source = "colegioPrenda")
+    @Mapping(target = "unitPrice", source = "precioUnitario")
     @Mapping(target = "imgGarment", source = "imgPrenda")
     @Mapping(target = "quantityStock", source = "cantidadStock")
     GarmentResponseDto toGarmentResponseDto(Prenda prenda);

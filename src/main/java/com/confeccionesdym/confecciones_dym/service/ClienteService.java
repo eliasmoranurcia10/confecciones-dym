@@ -11,4 +11,6 @@ public interface ClienteService {
     ClientResponseDto save(ClientRequestDto clientRequestDto);
     ClientResponseDto update(Integer id, ClientRequestDto clientRequestDto);
     void delete(Integer id);
+
+    List<ClientResponseDto> listByNames(String names, String lastNames);
 }

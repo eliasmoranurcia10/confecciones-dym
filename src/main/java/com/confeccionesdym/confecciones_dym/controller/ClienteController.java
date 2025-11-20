@@ -49,4 +49,12 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<ClientResponseDto>> getClientsByNames(
+            @RequestParam(required = false) String names,
+            @RequestParam(required = false) String lastNames
+    ) {
+        return ResponseEntity.ok(this.clienteService.listByNames(names, lastNames));
+    }
+
 }

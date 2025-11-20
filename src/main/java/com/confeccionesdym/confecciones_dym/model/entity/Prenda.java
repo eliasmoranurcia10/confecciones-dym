@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -29,6 +30,9 @@ public class Prenda {
 
     @Column(name = "colegio_prenda", length = 45)
     private String colegioPrenda;
+
+    @Column(name = "precio_unitario", precision = 10, scale = 2)
+    private BigDecimal precioUnitario;
 
     @Column(name = "img_prenda")
     private String imgPrenda;
