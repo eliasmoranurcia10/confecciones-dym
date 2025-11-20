@@ -106,6 +106,11 @@ public class VentaServiceImpl implements VentaService {
         }
     }
 
+    @Override
+    public List<SaleResponseDto> listAllByTipoPago(String tipoPago) {
+        return this.ventaMapper.toSalesResponseDto(this.ventaRepository.findAllByTipoPagoOrderByTotalPagoDesc(tipoPago));
+    }
+
     private void asignarRelaciones(@NotNull SaleRequestDto saleRequestDto,@NotNull Venta venta) {
 
         Usuario usuario = this.usuarioRepository.findById(saleRequestDto.idUser()).orElseThrow(

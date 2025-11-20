@@ -49,4 +49,11 @@ public class VentaController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/paymentType")
+    public ResponseEntity<List<SaleResponseDto>> getSalesByPaymentType(
+            @RequestParam String paymentType
+    ) {
+        return ResponseEntity.ok(this.ventaService.listAllByTipoPago(paymentType));
+    }
+
 }
