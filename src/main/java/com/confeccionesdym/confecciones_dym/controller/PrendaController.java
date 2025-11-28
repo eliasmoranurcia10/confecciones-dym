@@ -49,4 +49,9 @@ public class PrendaController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/college/{college}")
+    public ResponseEntity<List<GarmentResponseDto>> getAllGarmentsByCollege(@RequestParam String college) {
+        return ResponseEntity.ok(this.prendaService.listByCollege(college));
+    }
+
 }
