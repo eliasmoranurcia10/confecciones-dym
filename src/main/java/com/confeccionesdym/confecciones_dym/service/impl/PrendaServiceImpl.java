@@ -87,4 +87,10 @@ public class PrendaServiceImpl implements PrendaService {
             throw new InternalServerErrorException("Error inesperado al eliminar la prenda");
         }
     }
+
+    @Override
+    public List<GarmentResponseDto> listByCollege(String college) {
+        return this.prendaMapper.toGarmentsResponseDto(this.prendaRepository.findAllByColegioPrendaContainingIgnoreCase(college));
+    }
+
 }
