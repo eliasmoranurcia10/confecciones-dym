@@ -12,4 +12,5 @@ public interface PrendaService {
     GarmentResponseDto update(Integer id, GarmentRequestDto garmentRequestDto);
     void delete(Integer id);
     List<GarmentResponseDto> listByCollege(String college);
+    List<GarmentResponseDto> listByLessStock();
 }

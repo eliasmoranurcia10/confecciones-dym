@@ -54,4 +54,9 @@ public class PrendaController {
         return ResponseEntity.ok(this.prendaService.listByCollege(college));
     }
 
+    @GetMapping("/lessStock")
+    public ResponseEntity<List<GarmentResponseDto>> getGarmentsWithLessStock() {
+        return ResponseEntity.ok(this.prendaService.listByLessStock());
+    }
+
 }
