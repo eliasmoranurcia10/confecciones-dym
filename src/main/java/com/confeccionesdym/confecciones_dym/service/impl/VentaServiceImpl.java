@@ -15,11 +15,16 @@ import com.confeccionesdym.confecciones_dym.repository.VentaRepository;
 import com.confeccionesdym.confecciones_dym.service.VentaService;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import org.springframework.aop.config.AdviceEntry;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -110,6 +115,25 @@ public class VentaServiceImpl implements VentaService {
     public List<SaleResponseDto> listAllByTipoPago(String tipoPago) {
         return this.ventaMapper.toSalesResponseDto(this.ventaRepository.findAllByTipoPagoOrderByTotalPagoDesc(tipoPago));
     }
+
+    @Override
+    public List<SaleResponseDto> listByDateBetween(String fechaInicial, String fechaFinal) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+        LocalDateTime initialDate;
+        LocalDateTime endDate;
+
+        try {
+            initialDate = LocalDateTime.parse(fechaInicial, formatter);
+            endDate = LocalDateTime.parse(fechaFinal, formatter);
+        } catch (DateTimeParseException e) {
+            throw new BadRequestException("Formato incorrecto: Formato requerido (dd/MM/yyyy HH:mm:ss)");
+        }
+
+        return this.ventaMapper.toSalesResponseDto(this.ventaRepository.findAllByFechaEmisionBetween(initialDate, endDate));
+    }
+
 
     private void asignarRelaciones(@NotNull SaleRequestDto saleRequestDto,@NotNull Venta venta) {
 

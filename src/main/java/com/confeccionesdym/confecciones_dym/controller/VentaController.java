@@ -56,4 +56,12 @@ public class VentaController {
         return ResponseEntity.ok(this.ventaService.listAllByTipoPago(paymentType));
     }
 
+    @GetMapping("/dateSale")
+    public ResponseEntity<List<SaleResponseDto>> getSalesByDates(
+            @RequestParam String initialDate,
+            @RequestParam String endDate
+    ) {
+        return ResponseEntity.ok(this.ventaService.listByDateBetween(initialDate, endDate));
+    }
+
 }

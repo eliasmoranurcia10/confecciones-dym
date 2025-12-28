@@ -16,4 +16,5 @@ public interface VentaService {
     void delete(Integer id);
 
     List<SaleResponseDto> listAllByTipoPago(String tipoPago);
+    List<SaleResponseDto> listByDateBetween(String fechaInicial, String fechaFinal);
 }
