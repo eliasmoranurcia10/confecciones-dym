@@ -13,4 +13,5 @@ public interface PrendaService {
     void delete(Integer id);
     List<GarmentResponseDto> listByCollege(String college);
     List<GarmentResponseDto> listByLessStock();
+    List<GarmentResponseDto> listByGarmentTypeLessStock(String garmentType);
 }
