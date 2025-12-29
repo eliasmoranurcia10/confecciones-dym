@@ -93,4 +93,17 @@ public class PrendaServiceImpl implements PrendaService {
         return this.prendaMapper.toGarmentsResponseDto(this.prendaRepository.findAllByColegioPrendaContainingIgnoreCase(college));
     }
 
+    @Override
+    public List<GarmentResponseDto> listByLessStock() {
+        return this.prendaMapper.toGarmentsResponseDto(this.prendaRepository.findTop3ByOrderByCantidadStockAsc());
+    }
+
+    @Override
+    public List<GarmentResponseDto> listByGarmentTypeLessStock(String garmentType) {
+        return this.prendaMapper.toGarmentsResponseDto(
+                this.prendaRepository.findTop3ByTipoPrendaContainingIgnoreCaseOrderByCantidadStockAsc(garmentType)
+        );
+    }
+
+
 }

@@ -50,8 +50,20 @@ public class PrendaController {
     }
 
     @GetMapping("/college/{college}")
-    public ResponseEntity<List<GarmentResponseDto>> getAllGarmentsByCollege(@RequestParam String college) {
+    public ResponseEntity<List<GarmentResponseDto>> getAllGarmentsByCollege(@PathVariable String college) {
         return ResponseEntity.ok(this.prendaService.listByCollege(college));
+    }
+
+    @GetMapping("/lessStock")
+    public ResponseEntity<List<GarmentResponseDto>> getGarmentsWithLessStock() {
+        return ResponseEntity.ok(this.prendaService.listByLessStock());
+    }
+
+    @GetMapping("/lessStockByType/{garmentType}")
+    public ResponseEntity<List<GarmentResponseDto>> getGarmentsWithLessStockByType(
+        @PathVariable String garmentType
+    ) {
+        return ResponseEntity.ok(this.prendaService.listByGarmentTypeLessStock(garmentType));
     }
 
 }
