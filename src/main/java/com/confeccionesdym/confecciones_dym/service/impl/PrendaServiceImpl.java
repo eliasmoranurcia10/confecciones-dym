@@ -9,6 +9,9 @@ import com.confeccionesdym.confecciones_dym.repository.PrendaRepository;
 import com.confeccionesdym.confecciones_dym.service.PrendaService;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -105,5 +108,10 @@ public class PrendaServiceImpl implements PrendaService {
         );
     }
 
+    @Override
+    public Page<GarmentResponseDto> listPageGarments(int page, int elements) {
+        Pageable pageable = PageRequest.of(page, elements);
+        return this.prendaRepository.findAll(pageable).map(this.prendaMapper::toGarmentResponseDto);
+    }
 
 }
