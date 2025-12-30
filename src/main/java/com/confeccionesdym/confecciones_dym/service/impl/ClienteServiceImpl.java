@@ -9,6 +9,9 @@ import com.confeccionesdym.confecciones_dym.repository.ClienteRepository;
 import com.confeccionesdym.confecciones_dym.service.ClienteService;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -106,6 +109,13 @@ public class ClienteServiceImpl implements ClienteService {
         } else {
             return this.clienteMapper.toClientsResponseDto(this.clienteRepository.findAll());
         }
+    }
+
+    @Override
+    public Page<ClientResponseDto> listPagClients(int page, int elements) {
+        Pageable pageable = PageRequest.of(page, elements);
+
+        return this.clienteRepository.findAll(pageable).map(this.clienteMapper::toClientResponseDto);
     }
 
 }
