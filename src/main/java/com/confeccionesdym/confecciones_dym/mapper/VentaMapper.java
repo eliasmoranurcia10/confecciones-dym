@@ -4,6 +4,7 @@ import com.confeccionesdym.confecciones_dym.dto.sale.SaleRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.sale.SaleResponseDto;
 import com.confeccionesdym.confecciones_dym.model.entity.Venta;
 import org.mapstruct.*;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
