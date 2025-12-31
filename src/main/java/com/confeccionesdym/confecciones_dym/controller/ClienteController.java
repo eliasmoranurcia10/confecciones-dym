@@ -2,6 +2,7 @@ package com.confeccionesdym.confecciones_dym.controller;
 
 import com.confeccionesdym.confecciones_dym.dto.client.ClientRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.client.ClientResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.service.ClienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -59,7 +60,7 @@ public class ClienteController {
     }
 
     @GetMapping("/byPages")
-    public ResponseEntity<Page<ClientResponseDto>> getAllClientsByPages(
+    public ResponseEntity<PageResponse<ClientResponseDto>> getAllClientsByPages(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "8") int elements
     ) {
