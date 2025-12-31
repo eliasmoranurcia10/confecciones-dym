@@ -1,5 +1,6 @@
 package com.confeccionesdym.confecciones_dym.service;
 
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.dto.user.UserRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.user.UserResponseDto;
 import org.springframework.data.domain.Page;
@@ -13,5 +14,5 @@ public interface UsuarioService {
     UserResponseDto update(Integer id, UserRequestDto userRequestDto);
     void delete(Integer id);
 
-    Page<UserResponseDto> listPagUsers(int page, int elements);
+    PageResponse<UserResponseDto> listPagUsers(int page, int elements);
 }

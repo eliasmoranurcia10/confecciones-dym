@@ -1,5 +1,6 @@
 package com.confeccionesdym.confecciones_dym.service.impl;
 
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.dto.user.UserRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.user.UserResponseDto;
 import com.confeccionesdym.confecciones_dym.exception.*;
@@ -94,10 +95,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Page<UserResponseDto> listPagUsers(int page, int elements) {
+    public PageResponse<UserResponseDto> listPagUsers(int page, int elements) {
         Pageable pageable = PageRequest.of(page, elements);
-
-        return this.usuarioRepository.findAll(pageable).map(this.usuarioMapper::toUserResponseDto);
+        Page<UserResponseDto> pagina = this.usuarioRepository.findAll(pageable).map(this.usuarioMapper::toUserResponseDto);
+        return new PageResponse<>(
+                pagina.getContent(),
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
 }
