@@ -2,6 +2,7 @@ package com.confeccionesdym.confecciones_dym.service;
 
 import com.confeccionesdym.confecciones_dym.dto.client.ClientRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.client.ClientResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface ClienteService {
     void delete(Integer id);
 
     List<ClientResponseDto> listByNames(String names, String lastNames);
-    Page<ClientResponseDto> listPagClients(int page, int elements);
+    PageResponse<ClientResponseDto> listPagClients(int page, int elements);
 }

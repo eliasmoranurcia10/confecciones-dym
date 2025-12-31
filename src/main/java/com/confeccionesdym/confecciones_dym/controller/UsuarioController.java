@@ -1,5 +1,6 @@
 package com.confeccionesdym.confecciones_dym.controller;
 
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.dto.user.UserRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.user.UserResponseDto;
 import com.confeccionesdym.confecciones_dym.service.UsuarioService;
@@ -51,7 +52,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/byPages")
-    public ResponseEntity<Page<UserResponseDto>> listAllUsersByPages(
+    public ResponseEntity<PageResponse<UserResponseDto>> listAllUsersByPages(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "8") int elements
     ) {

@@ -1,5 +1,6 @@
 package com.confeccionesdym.confecciones_dym.service.impl;
 
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.dto.sale.SaleRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.sale.SaleResponseDto;
 import com.confeccionesdym.confecciones_dym.exception.*;
@@ -138,10 +139,16 @@ public class VentaServiceImpl implements VentaService {
     }
 
     @Override
-    public Page<SaleResponseDto> listPagSales(int page, int elements) {
+    public PageResponse<SaleResponseDto> listPagSales(int page, int elements) {
         Pageable pageRequest = PageRequest.of(page, elements);
-
-        return this.ventaRepository.findAll(pageRequest).map(this.ventaMapper::toSaleResponseDto);
+        Page<SaleResponseDto> pagina = this.ventaRepository.findAll(pageRequest).map(this.ventaMapper::toSaleResponseDto);
+        return new PageResponse<>(
+                pagina.getContent(),
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
 

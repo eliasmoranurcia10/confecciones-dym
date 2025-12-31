@@ -2,6 +2,7 @@ package com.confeccionesdym.confecciones_dym.service.impl;
 
 import com.confeccionesdym.confecciones_dym.dto.client.ClientRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.client.ClientResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.exception.*;
 import com.confeccionesdym.confecciones_dym.mapper.ClienteMapper;
 import com.confeccionesdym.confecciones_dym.model.entity.Cliente;
@@ -112,10 +113,16 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Page<ClientResponseDto> listPagClients(int page, int elements) {
+    public PageResponse<ClientResponseDto> listPagClients(int page, int elements) {
         Pageable pageable = PageRequest.of(page, elements);
-
-        return this.clienteRepository.findAll(pageable).map(this.clienteMapper::toClientResponseDto);
+        Page<ClientResponseDto> pagina = this.clienteRepository.findAll(pageable).map(this.clienteMapper::toClientResponseDto);
+        return new PageResponse<>(
+                pagina.getContent(),
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
 }
