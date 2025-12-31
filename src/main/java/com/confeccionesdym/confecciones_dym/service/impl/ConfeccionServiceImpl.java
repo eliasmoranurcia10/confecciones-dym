@@ -12,6 +12,9 @@ import com.confeccionesdym.confecciones_dym.service.ConfeccionService;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,6 +102,13 @@ public class ConfeccionServiceImpl implements ConfeccionService {
             throw new InternalServerErrorException("Error inesperado al eliminar la confección");
         }
     }
+
+    @Override
+    public Page<ConfectionResponseDto> listPageConfections(int page, int elements) {
+        Pageable pageable = PageRequest.of(page, elements);
+        return this.confeccionRepository.findAll(pageable).map(this.confeccionMapper::toConfectionResponseDto);
+    }
+
 
     private void asignarRelaciones(@NotNull ConfectionRequestDto confectionRequestDto,@NotNull Confeccion confeccion ) {
         Prenda prenda = this.prendaRepository.findById(confectionRequestDto.idGarment()).orElseThrow(
