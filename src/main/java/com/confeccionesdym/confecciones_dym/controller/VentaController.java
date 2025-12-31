@@ -1,5 +1,6 @@
 package com.confeccionesdym.confecciones_dym.controller;
 
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.dto.sale.SaleRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.sale.SaleResponseDto;
 import com.confeccionesdym.confecciones_dym.service.VentaService;
@@ -66,7 +67,7 @@ public class VentaController {
     }
 
     @GetMapping("/byPages")
-    public ResponseEntity<Page<SaleResponseDto>> getAllSalesByPages(
+    public ResponseEntity<PageResponse<SaleResponseDto>> getAllSalesByPages(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "6") int elements
     ) {
