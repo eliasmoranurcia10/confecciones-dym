@@ -2,6 +2,7 @@ package com.confeccionesdym.confecciones_dym.service.impl;
 
 import com.confeccionesdym.confecciones_dym.dto.measure.MeasureRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.measure.MeasureResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.exception.BadRequestException;
 import com.confeccionesdym.confecciones_dym.exception.DuplicateResourceException;
 import com.confeccionesdym.confecciones_dym.exception.InternalServerErrorException;
@@ -17,6 +18,9 @@ import com.confeccionesdym.confecciones_dym.service.MedidaService;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -105,6 +109,20 @@ public class MedidaServiceImpl implements MedidaService {
             throw new InternalServerErrorException("Error inesperado al eliminar la medida");
         }
     }
+
+    @Override
+    public PageResponse<MeasureResponseDto> listPageMeasures(int page, int elements) {
+        Pageable pageable = PageRequest.of(page, elements);
+        Page<MeasureResponseDto> pagina = this.medidaRepository.findAll(pageable).map(this.medidaMapper::toMeasureResponseDto);
+        return new PageResponse<>(
+                pagina.getContent(),
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
+    }
+
 
     private void asignarRelaciones(@NotNull MeasureRequestDto measureRequestDto,@NotNull Medida medida) {
         Cliente cliente = this.clienteRepository.findById(measureRequestDto.idClient()).orElseThrow(

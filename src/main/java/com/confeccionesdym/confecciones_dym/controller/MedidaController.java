@@ -2,10 +2,12 @@ package com.confeccionesdym.confecciones_dym.controller;
 
 import com.confeccionesdym.confecciones_dym.dto.measure.MeasureRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.measure.MeasureResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.service.MedidaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +49,14 @@ public class MedidaController {
     public ResponseEntity<Void> deleteMeasure(@PathVariable Integer id) {
         this.medidaService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/byPages")
+    public ResponseEntity<PageResponse<MeasureResponseDto>> getAllMeasuresByPages(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int elements
+    ) {
+        return ResponseEntity.ok(this.medidaService.listPageMeasures(page, elements));
     }
 
 }
