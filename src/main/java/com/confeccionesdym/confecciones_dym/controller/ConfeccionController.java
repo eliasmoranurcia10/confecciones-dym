@@ -6,6 +6,7 @@ import com.confeccionesdym.confecciones_dym.service.ConfeccionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +48,13 @@ public class ConfeccionController {
     public ResponseEntity<Void> deleteConfection(@PathVariable Integer id) {
         this.confeccionService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/byPages")
+    public ResponseEntity<Page<ConfectionResponseDto>> getAllConfectionsByPages(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "8") int elements
+    ) {
+        return ResponseEntity.ok(this.confeccionService.listPageConfections(page, elements));
     }
 }

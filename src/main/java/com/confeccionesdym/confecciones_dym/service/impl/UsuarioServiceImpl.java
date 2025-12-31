@@ -9,6 +9,9 @@ import com.confeccionesdym.confecciones_dym.repository.UsuarioRepository;
 import com.confeccionesdym.confecciones_dym.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,4 +92,12 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new InternalServerErrorException("Error inesperado al eliminar el usuario");
         }
     }
+
+    @Override
+    public Page<UserResponseDto> listPagUsers(int page, int elements) {
+        Pageable pageable = PageRequest.of(page, elements);
+
+        return this.usuarioRepository.findAll(pageable).map(this.usuarioMapper::toUserResponseDto);
+    }
+
 }

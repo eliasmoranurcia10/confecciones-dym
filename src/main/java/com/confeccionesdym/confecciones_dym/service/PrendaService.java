@@ -2,6 +2,7 @@ package com.confeccionesdym.confecciones_dym.service;
 
 import com.confeccionesdym.confecciones_dym.dto.garment.GarmentRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.garment.GarmentResponseDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -11,7 +12,9 @@ public interface PrendaService {
     GarmentResponseDto save(GarmentRequestDto garmentRequestDto);
     GarmentResponseDto update(Integer id, GarmentRequestDto garmentRequestDto);
     void delete(Integer id);
+
     List<GarmentResponseDto> listByCollege(String college);
     List<GarmentResponseDto> listByLessStock();
     List<GarmentResponseDto> listByGarmentTypeLessStock(String garmentType);
+    Page<GarmentResponseDto> listPageGarments(int page, int elements);
 }

@@ -6,6 +6,7 @@ import com.confeccionesdym.confecciones_dym.service.ClienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +56,14 @@ public class ClienteController {
             @RequestParam(required = false) String lastNames
     ) {
         return ResponseEntity.ok(this.clienteService.listByNames(names, lastNames));
+    }
+
+    @GetMapping("/byPages")
+    public ResponseEntity<Page<ClientResponseDto>> getAllClientsByPages(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "8") int elements
+    ) {
+        return ResponseEntity.ok(this.clienteService.listPagClients(page, elements));
     }
 
 }

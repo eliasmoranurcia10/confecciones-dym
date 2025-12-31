@@ -17,6 +17,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.aop.config.AdviceEntry;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -132,6 +135,13 @@ public class VentaServiceImpl implements VentaService {
         }
 
         return this.ventaMapper.toSalesResponseDto(this.ventaRepository.findAllByFechaEmisionBetween(initialDate, endDate));
+    }
+
+    @Override
+    public Page<SaleResponseDto> listPagSales(int page, int elements) {
+        Pageable pageRequest = PageRequest.of(page, elements);
+
+        return this.ventaRepository.findAll(pageRequest).map(this.ventaMapper::toSaleResponseDto);
     }
 
 

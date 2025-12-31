@@ -6,6 +6,7 @@ import com.confeccionesdym.confecciones_dym.service.VentaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +63,14 @@ public class VentaController {
             @RequestParam String endDate
     ) {
         return ResponseEntity.ok(this.ventaService.listByDateBetween(initialDate, endDate));
+    }
+
+    @GetMapping("/byPages")
+    public ResponseEntity<Page<SaleResponseDto>> getAllSalesByPages(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int elements
+    ) {
+        return ResponseEntity.ok(this.ventaService.listPagSales(page, elements));
     }
 
 }
