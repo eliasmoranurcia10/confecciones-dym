@@ -2,6 +2,7 @@ package com.confeccionesdym.confecciones_dym.service.impl;
 
 import com.confeccionesdym.confecciones_dym.dto.confection.ConfectionRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.confection.ConfectionResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.exception.*;
 import com.confeccionesdym.confecciones_dym.mapper.ConfeccionMapper;
 import com.confeccionesdym.confecciones_dym.model.entity.Confeccion;
@@ -104,9 +105,16 @@ public class ConfeccionServiceImpl implements ConfeccionService {
     }
 
     @Override
-    public Page<ConfectionResponseDto> listPageConfections(int page, int elements) {
+    public PageResponse<ConfectionResponseDto> listPageConfections(int page, int elements) {
         Pageable pageable = PageRequest.of(page, elements);
-        return this.confeccionRepository.findAll(pageable).map(this.confeccionMapper::toConfectionResponseDto);
+        Page<ConfectionResponseDto> pagina = this.confeccionRepository.findAll(pageable).map(this.confeccionMapper::toConfectionResponseDto);
+        return new PageResponse<>(
+                pagina.getContent(),
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
 

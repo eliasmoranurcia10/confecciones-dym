@@ -2,6 +2,7 @@ package com.confeccionesdym.confecciones_dym.controller;
 
 import com.confeccionesdym.confecciones_dym.dto.confection.ConfectionRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.confection.ConfectionResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.service.ConfeccionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -51,7 +52,7 @@ public class ConfeccionController {
     }
 
     @GetMapping("/byPages")
-    public ResponseEntity<Page<ConfectionResponseDto>> getAllConfectionsByPages(
+    public ResponseEntity<PageResponse<ConfectionResponseDto>> getAllConfectionsByPages(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "8") int elements
     ) {
