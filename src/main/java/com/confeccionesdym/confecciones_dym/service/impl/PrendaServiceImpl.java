@@ -2,6 +2,7 @@ package com.confeccionesdym.confecciones_dym.service.impl;
 
 import com.confeccionesdym.confecciones_dym.dto.garment.GarmentRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.garment.GarmentResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.exception.*;
 import com.confeccionesdym.confecciones_dym.mapper.PrendaMapper;
 import com.confeccionesdym.confecciones_dym.model.entity.Prenda;
@@ -109,9 +110,16 @@ public class PrendaServiceImpl implements PrendaService {
     }
 
     @Override
-    public Page<GarmentResponseDto> listPageGarments(int page, int elements) {
+    public PageResponse<GarmentResponseDto> listPageGarments(int page, int elements) {
         Pageable pageable = PageRequest.of(page, elements);
-        return this.prendaRepository.findAll(pageable).map(this.prendaMapper::toGarmentResponseDto);
+        Page<GarmentResponseDto> pagina = this.prendaRepository.findAll(pageable).map(this.prendaMapper::toGarmentResponseDto);
+        return new PageResponse<>(
+                pagina.getContent(),
+                pagina.getNumber(),
+                pagina.getSize(),
+                pagina.getTotalElements(),
+                pagina.getTotalPages()
+        );
     }
 
 }

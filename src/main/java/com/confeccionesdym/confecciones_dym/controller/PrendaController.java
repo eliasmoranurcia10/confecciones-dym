@@ -2,6 +2,7 @@ package com.confeccionesdym.confecciones_dym.controller;
 
 import com.confeccionesdym.confecciones_dym.dto.garment.GarmentRequestDto;
 import com.confeccionesdym.confecciones_dym.dto.garment.GarmentResponseDto;
+import com.confeccionesdym.confecciones_dym.dto.response.PageResponse;
 import com.confeccionesdym.confecciones_dym.service.PrendaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -68,7 +69,7 @@ public class PrendaController {
     }
 
     @GetMapping("/byPages")
-    public ResponseEntity<Page<GarmentResponseDto>> getAllGarmentsByPages(
+    public ResponseEntity<PageResponse<GarmentResponseDto>> getAllGarmentsByPages(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "8") int elements
     ) {
