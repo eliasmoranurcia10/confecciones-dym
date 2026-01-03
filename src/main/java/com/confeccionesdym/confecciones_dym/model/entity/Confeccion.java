@@ -1,10 +1,12 @@
 package com.confeccionesdym.confecciones_dym.model.entity;
 
+import com.confeccionesdym.confecciones_dym.model.audit.AuditableEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "confeccion")
-public class Confeccion {
+@EntityListeners(AuditingEntityListener.class)
+public class Confeccion extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
