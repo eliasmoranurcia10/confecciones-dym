@@ -1,10 +1,12 @@
 package com.confeccionesdym.confecciones_dym.model.entity;
 
+import com.confeccionesdym.confecciones_dym.model.audit.AuditableEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 
@@ -14,7 +16,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Entity
 @Table(name = "medida")
-public class Medida {
+@EntityListeners(AuditingEntityListener.class)
+public class Medida extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
