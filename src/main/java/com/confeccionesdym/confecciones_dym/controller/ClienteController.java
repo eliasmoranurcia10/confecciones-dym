@@ -23,6 +23,7 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @GetMapping
+    //@CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<List<ClientResponseDto>> getAllClients() {
         return ResponseEntity.ok(this.clienteService.listAll());
     }
