@@ -26,9 +26,11 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         // Permitir el acceso a los endpoints de Swagger sin autenticación
-                        .requestMatchers("swagger-ui/**", "v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         // Permitir el acceso a los endpoints de clientes sin autenticación
-                        //.requestMatchers(HttpMethod.GET, "/clients/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/clients/**").hasRole("ADMIN")
+                        // Permitir el acceso a los endpoints de clientes solo para usuarios con rol ADMIN
+                        .requestMatchers(HttpMethod.POST, "/clients/**").hasRole("ADMIN")
                         // Ingresar con autenticación básica a cualquier endpoint -->  .anyRequest().authenticated()
                         // Para permitir el acceso sin autenticación --> .anyRequest().permitAll()
                         .anyRequest().authenticated()
@@ -45,7 +47,13 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin);
+        UserDetails customer = User.builder()
+                .username("customer")
+                .password(passwordEncoder().encode("customer"))
+                .roles("CUSTOMER")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, customer);
     }
 
     @Bean
