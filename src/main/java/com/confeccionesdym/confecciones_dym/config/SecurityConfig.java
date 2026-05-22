@@ -24,9 +24,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 //Habilitar CORS con la configuración predeterminada
                 .cors(Customizer.withDefaults())
+                // Permitir iframes para H2 Console
+                .headers(headers ->
+                        headers.frameOptions(frame -> frame.disable())
+                )
                 .authorizeHttpRequests(auth -> auth
                         // Permitir el acceso a los endpoints de Swagger sin autenticación
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
                         // Permitir el acceso a los endpoints de clientes sin autenticación
                         .requestMatchers(HttpMethod.GET, "/clients/**").hasRole("ADMIN")
                         // Permitir el acceso a los endpoints de clientes solo para usuarios con rol ADMIN
