@@ -33,11 +33,23 @@ public class Usuario extends AuditableEntity {
     @Column(name = "apellidos_usuario", nullable = false, length = 45)
     private String apellidosUsuario;
 
+    @Column(name = "username", nullable = false, length = 20, unique = true)
+    private String username;
+
+    @Column(name = "password", nullable = false, length = 255)
+    private String password;
+
     @Column(name = "rol_usuario", nullable = false, length = 45)
     private String rolUsuario;
 
     @Column(name = "celular_usuario", nullable = false, length = 9, unique = true)
     private String celularUsuario;
+
+    @Column(name = "locked", nullable = false, columnDefinition = "TINYINT")
+    private Boolean locked;
+
+    @Column(name = "disabled", nullable = false, columnDefinition = "TINYINT")
+    private Boolean disabled;
 
     @OneToMany(mappedBy = "usuario")
     private List<Venta> ventas;

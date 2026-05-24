@@ -5,7 +5,11 @@ public record UserResponseDto(
         String dniUser,
         String nameUser,
         String lastNameUser,
+        String username,
+        String password,
         String roleUser,
-        String phoneUser
+        String phoneUser,
+        Boolean locked,
+        Boolean disabled
 ) {
 }

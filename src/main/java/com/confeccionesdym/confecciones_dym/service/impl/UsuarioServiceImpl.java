@@ -13,6 +13,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +25,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
@@ -42,7 +47,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public UserResponseDto save(UserRequestDto userRequestDto) {
         try {
-            return this.usuarioMapper.toUserResponseDto(this.usuarioRepository.save(this.usuarioMapper.toUsuario(userRequestDto)));
+            // Proceso de encriptación de la contraseña antes de guardar el usuario
+            Usuario usuario = this.usuarioMapper.toUsuario(userRequestDto);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(userRequestDto.password()));
+            return this.usuarioMapper.toUserResponseDto(this.usuarioRepository.save(usuario));
         }
         catch (DataIntegrityViolationException exception) {
             throw new DuplicateResourceException("Valores del usuario ya registrados");
@@ -59,6 +67,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         return this.usuarioMapper.toUserResponseDto(this.usuarioRepository.findById(id)
                 .map(usuario -> {
                     this.usuarioMapper.updateUsuarioFromDto(userRequestDto, usuario);
+                    usuario.setPassword(new BCryptPasswordEncoder().encode(userRequestDto.password()));
                     try {
                         return this.usuarioRepository.save(usuario);
                     }
@@ -107,4 +116,18 @@ public class UsuarioServiceImpl implements UsuarioService {
         );
     }
 
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = this.usuarioRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException("No se encontró al usuario con el username: " + username)
+        );
+        return User.builder()
+                .username(usuario.getUsername())
+                .password(usuario.getPassword())
+                .roles(usuario.getRolUsuario())
+                .accountLocked(usuario.getLocked())
+                .disabled(usuario.getDisabled())
+                .build();
+    }
 }
