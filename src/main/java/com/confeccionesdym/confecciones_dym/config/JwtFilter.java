@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -26,7 +27,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // Validar que sea un Header de autorización válido
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if(authHeader==null || authHeader.isEmpty() || authHeader.startsWith("Bearer") ){
+        if(authHeader==null || authHeader.isEmpty() || !authHeader.startsWith("Bearer") ){
             // Si no es un header de autorización válido, continuar con la cadena de filtros sin hacer nada
             filterChain.doFilter(request,response);
             return;
@@ -51,8 +52,13 @@ public class JwtFilter extends OncePerRequestFilter {
                 user.getAuthorities()
         );
 
+        // Establecer los detalles de la autenticación con la información de la solicitud
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
         // Enviar al contexto de seguridad la autenticación del usuario y continuar con la cadena de filtros
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+        System.out.println("=== JWT FILTER EJECUTADO ===");
         filterChain.doFilter(request, response);
     }
 }
