@@ -45,10 +45,10 @@ public class Usuario extends AuditableEntity {
     @Column(name = "celular_usuario", nullable = false, length = 9, unique = true)
     private String celularUsuario;
 
-    @Column(name = "locked", nullable = false, columnDefinition = "TINYINT")
+    @Column(name = "locked", nullable = false, columnDefinition = "SMALLINT")
     private Boolean locked;
 
-    @Column(name = "disabled", nullable = false, columnDefinition = "TINYINT")
+    @Column(name = "disabled", nullable = false, columnDefinition = "SMALLINT")
     private Boolean disabled;
 
     @OneToMany(mappedBy = "usuario")
