@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Permitir el acceso a los endpoints de autenticación sin autenticación
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
                         // Permitir el acceso a los endpoints de Swagger sin autenticación
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
                         // Permitir el acceso a los endpoints de clientes sin autenticación
