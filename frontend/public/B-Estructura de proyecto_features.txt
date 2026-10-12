@@ -1,0 +1,56 @@
+src/
+├── features/
+│   ├── auth/
+│   │   ├── components/
+│   │   │   └── LoginForm.jsx
+│   │   ├── pages/
+│   │   │   └── LoginPage.jsx
+│   │   ├── services/
+│   │   │   └── authService.js
+│   │   └── hooks/
+│   │       └── useAuth.js
+│   │
+│   ├── clientes/
+│   │   ├── components/
+│   │   │   ├── ClienteForm.jsx
+│   │   │   └── ClienteTable.jsx
+│   │   ├── pages/
+│   │   │   └── ClientesPage.jsx
+│   │   └── services/
+│   │       └── clienteService.js
+│   │
+│   ├── productos/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── services/
+│   │
+│   └── pedidos/
+│       ├── components/
+│       ├── pages/
+│       └── services/
+│
+├── shared/
+│   ├── components/
+│   │   ├── Button/
+│   │   ├── Input/
+│   │   ├── Modal/
+│   │   └── Table/
+│   │
+│   ├── hooks/
+│   ├── utils/
+│   └── constants/
+│
+├── layouts/
+│   ├── DashboardLayout.jsx
+│   └── AuthLayout.jsx
+│
+├── routes/
+│   └── AppRoutes.jsx
+│
+├── services/
+│   └── api.js
+│
+├── assets/
+├── styles/
+├── App.jsx
+└── main.jsx

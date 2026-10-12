@@ -1,0 +1,48 @@
+{
+    "data": "",
+    "status": 200,
+    "statusText": "",
+    "headers": {
+        "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ5bW9yYW51ciIsImlzcyI6ImNvbmZlY2Npb25lcy1keW0iLCJpYXQiOjE3OTE3ODI2NTAsImV4cCI6MTc5MzA3ODY1MH0.ORlJ_MSiRkWRuoVRFOiQzn1-yBT1QRR3ft8yu-set88",
+        "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+        "content-length": "0",
+        "expires": "0",
+        "pragma": "no-cache"
+    },
+    "config": {
+        "transitional": {
+            "silentJSONParsing": true,
+            "forcedJSONParsing": true,
+            "clarifyTimeoutError": false,
+            "legacyInterceptorReqResOrdering": true,
+            "advertiseZstdAcceptEncoding": false,
+            "validateStatusUndefinedResolves": true
+        },
+        "adapter": [
+            "xhr",
+            "http",
+            "fetch"
+        ],
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        },
+        "method": "post",
+        "url": "http://localhost:8081/api/auth/login",
+        "data": "{\"username\":\"ymoranur\",\"password\":\"123456789Yoexer\"}",
+        "allowAbsoluteUrls": true
+    },
+    "request": {}
+}

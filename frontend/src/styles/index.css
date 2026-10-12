@@ -1,0 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-satisfy: "Satisfy", cursive;
+}

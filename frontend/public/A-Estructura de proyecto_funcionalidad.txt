@@ -1,0 +1,53 @@
+src/
+├── assets/
+│   ├── images/
+│   ├── icons/
+│   └── fonts/
+│
+├── components/
+│   ├── Button/
+│   │   ├── Button.jsx
+│   │   └── Button.module.css
+│   ├── Input/
+│   └── Modal/
+│
+├── layouts/
+│   ├── MainLayout.jsx
+│   └── AuthLayout.jsx
+│
+├── pages/
+│   ├── Login/
+│   │   └── LoginPage.jsx
+│   ├── Home/
+│   │   └── HomePage.jsx
+│   └── Users/
+│       └── UsersPage.jsx
+│
+├── services/
+│   ├── api.js
+│   ├── authService.js
+│   └── userService.js
+│
+├── hooks/
+│   ├── useAuth.js
+│   └── useFetch.js
+│
+├── context/
+│   └── AuthContext.jsx
+│
+├── utils/
+│   ├── validators.js
+│   ├── formatters.js
+│   └── constants.js
+│
+├── routes/
+│   └── AppRoutes.jsx
+│
+├── styles/
+│   ├── globals.css
+│   └── variables.css
+│
+├── App.jsx
+└── main.jsx
+
+
