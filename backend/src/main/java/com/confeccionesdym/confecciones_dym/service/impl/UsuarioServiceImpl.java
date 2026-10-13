@@ -120,7 +120,8 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = this.usuarioRepository.findByUsername(username).orElseThrow(
-                () -> new UsernameNotFoundException("No se encontró al usuario con el username: " + username)
+                //() -> new UsernameNotFoundException("No se encontró al usuario con el username: " + username)
+                () -> new ResourceNotFoundException("No se encontró al usuario con el username: "+username)
         );
         return User.builder()
                 .username(usuario.getUsername())

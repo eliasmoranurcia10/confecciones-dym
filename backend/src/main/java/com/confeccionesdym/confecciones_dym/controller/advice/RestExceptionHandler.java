@@ -5,6 +5,9 @@ import com.confeccionesdym.confecciones_dym.exception.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -37,6 +40,16 @@ public class RestExceptionHandler {
     @ExceptionHandler(ConflictException.class)
     public ResponseEntity<ErrorDetailDto> handleConflictException(ConflictException ex) {
         return buildResponse("conflict-exception", ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorDetailDto> handleBadCredentials(BadCredentialsException ex) {
+        return buildResponse("bad-credentials", ex.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErrorDetailDto> handleUsernameNotFoundException(AuthenticationException ex) {
+        return buildResponse("authentication-failed", ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(InternalServerErrorException.class)
